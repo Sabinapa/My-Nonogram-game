@@ -53,7 +53,6 @@ public class IntroScreen extends ScreenAdapter
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
 
         stage.addActor(createKeyhole());
-        //stage.addActor(createAnimation());
         // Dodaj animacijo metuljev na odro
         stage.addActor(createButterflyAnimation());
 
