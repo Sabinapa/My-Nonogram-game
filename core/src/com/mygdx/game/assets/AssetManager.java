@@ -1,4 +1,6 @@
 package com.mygdx.game.assets;
 
-public class AssetManager {
+public class AssetManager
+{
+
 }
