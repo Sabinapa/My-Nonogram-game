@@ -45,17 +45,15 @@ public class IntroScreen extends ScreenAdapter
         stage = new Stage(viewport, game.getBatch());
 
         // load assets
-        assetManager.load(AssetDescriptors.UI_FONT);
-        assetManager.load(AssetDescriptors.UI_SKIN);
+        assetManager.load(AssetDescriptors.UI_SKINR);
         assetManager.load(AssetDescriptors.GAMEPLAY);
         assetManager.finishLoading();   // blocks until all assets are loaded
 
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
 
         stage.addActor(createKeyhole());
-        // Dodaj animacijo metuljev na odro
+        // Animacijo metuljev
         stage.addActor(createButterflyAnimation());
-
     }
 
     @Override
@@ -65,9 +63,7 @@ public class IntroScreen extends ScreenAdapter
 
     @Override
     public void render(float delta) {
-        //ScreenUtils.clear(65 / 255f, 159 / 255f, 221 / 255f, 0f);
         ScreenUtils.clear(1f, 1f, 1f, 0f);
-
 
         duration += delta;
 
@@ -100,7 +96,7 @@ public class IntroScreen extends ScreenAdapter
         // Nastavi os za povečanje v sredino slike
         circle.setOrigin(circle.getWidth() / 2f, circle.getHeight() / 2f);
 
-        // position the image to the center of the window
+        // Namesti sliko na sredino zaslona
         circle.setPosition(viewport.getWorldWidth() / 2f - circle.getWidth() / 2f,
                 viewport.getWorldHeight() / 2f - circle.getHeight() / 2f);
 
