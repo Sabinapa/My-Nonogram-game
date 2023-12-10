@@ -6,7 +6,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(900, 700);
+		config.setWindowedMode(850, 650);
 		config.setForegroundFPS(60);
 		config.setTitle("MyNonogram");
 		new Lwjgl3Application(new NonogramGame(), config);

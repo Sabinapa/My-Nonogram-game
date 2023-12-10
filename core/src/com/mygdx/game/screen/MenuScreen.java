@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -26,7 +27,6 @@ public class MenuScreen extends ScreenAdapter
 {
     private final NonogramGame game;
     private final AssetManager assetManager;
-
     private Viewport viewport;
     private Stage stage;
 
@@ -43,7 +43,7 @@ public class MenuScreen extends ScreenAdapter
         viewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
         stage = new Stage(viewport, game.getBatch());
 
-        skin = assetManager.get(AssetDescriptors.UI_SKIN);
+        skin = assetManager.get(AssetDescriptors.UI_SKINR);
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
 
         stage.addActor(createUi());
@@ -58,8 +58,6 @@ public class MenuScreen extends ScreenAdapter
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1f, 1f, 1f, 1f); // Bela barva ozadja
-
-
         stage.act(delta);
         stage.draw();
     }
@@ -81,13 +79,9 @@ public class MenuScreen extends ScreenAdapter
         TextureRegion backgroundRegion = gameplayAtlas.findRegion(RegionNames.BACKGROUND);
         table.setBackground(new TextureRegionDrawable(backgroundRegion));
 
-        // TextButton introButton = new TextButton("Intro screen", skin);
-        // introButton.addListener(new ClickListener() {
-        //     @Override
-        //     public void clicked(InputEvent event, float x, float y) {
-        //         game.setScreen(new IntroScreen(game));
-        //     }
-        // });
+        Touchpad touchpad = new Touchpad(10, skin, "default"); // "default" uporablja stil za Touchpad
+        table.add(touchpad).expand().center().padTop(50).row(); // Prilagodite potrebne lastnosti
+
 
         TextButton playButton = new TextButton("Play", skin);
         playButton.addListener(new ClickListener() {
@@ -126,14 +120,6 @@ public class MenuScreen extends ScreenAdapter
         Table buttonTable = new Table();
         buttonTable.defaults().padLeft(30).padRight(30);
 
-        TextureRegion menuBackgroundRegion = gameplayAtlas.findRegion(RegionNames.CIRCLE);
-        Drawable backgroundDrawable = new TextureRegionDrawable(menuBackgroundRegion);
-        backgroundDrawable.setMinWidth(300f); // Prilagodite želeno širino
-        backgroundDrawable.setMinHeight(300f); // Prilagodite želeno višino
-        buttonTable.setBackground(backgroundDrawable);
-
-
-        // buttonTable.add(introButton).padBottom(15).expandX().fillX().row();
         buttonTable.add(playButton).padBottom(15).expandX().fill().row();
         buttonTable.add(leaderboardButton).padBottom(15).fillX().row();
         buttonTable.add(settingsButton).padBottom(15).fillX().row();
