@@ -57,7 +57,7 @@ public class IntroScreen extends ScreenAdapter
         stage.addActor(createButterflyAnimation());
 
         // Dodajte naslov v sredino
-        Label title = new Label("Nonogram", assetManager.get(AssetDescriptors.UI_SKINR));
+        Label title = new Label("NONOGRAM", assetManager.get(AssetDescriptors.UI_SKINR));
         title.setPosition(
                 viewport.getWorldWidth() / 2f - title.getWidth() / 2f,
                 viewport.getWorldHeight() / 2f - title.getHeight() / 2f

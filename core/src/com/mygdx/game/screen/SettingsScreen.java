@@ -10,12 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -39,6 +41,11 @@ public class SettingsScreen extends ScreenAdapter
     private boolean isSoundOn;
     private boolean isMusicOn;
 
+    private String gameMode;
+
+    private SelectBox<String> difficultySelectBox;
+    private Array<String> difficultyOptions = new Array<>(new String[]{"Easy", "Standard", "Hard"});
+
 
     public SettingsScreen(NonogramGame game) {
         this.game = game;
@@ -58,6 +65,7 @@ public class SettingsScreen extends ScreenAdapter
         isTimerOn = GameManager.isTimerOn();
         isSoundOn = GameManager.isSoundOn();
         isMusicOn = GameManager.isMusicOn();
+        gameMode = GameManager.getGameMode();
 
         createUI();
         Gdx.input.setInputProcessor(stage);
@@ -88,6 +96,7 @@ public class SettingsScreen extends ScreenAdapter
         GameManager.setTimerState(isTimerOn);
         GameManager.setSoundState(isSoundOn);
         GameManager.setMusicState(isMusicOn);
+        GameManager.setGameMode(gameMode);
         GameManager.flush();
 
         stage.dispose();
@@ -138,6 +147,20 @@ public class SettingsScreen extends ScreenAdapter
             }
         });
         table.add(musicCheckBox).colspan(2).padTop(20).row();
+
+        // Dodajte SelectBox za izbiro težavnostnega načina
+        difficultySelectBox = new SelectBox<>(skin);
+        difficultySelectBox.setItems(difficultyOptions);
+        difficultySelectBox.setSelected(gameMode); // Nastavitev izbrane možnosti
+        difficultySelectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Posodobi stanje težavnostnega načina
+                gameMode = difficultySelectBox.getSelected();
+            }
+        });
+        table.add(new Label("Difficulty:", skin)).padTop(20).padRight(10);
+        table.add(difficultySelectBox).padTop(20).colspan(2).row();
 
         // Gumb za vrnitev
         TextButton backButton = new TextButton("Back to Menu", skin);

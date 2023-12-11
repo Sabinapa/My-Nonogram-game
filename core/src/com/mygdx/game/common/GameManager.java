@@ -6,6 +6,8 @@ import com.badlogic.gdx.Preferences;
 public class GameManager {
     private static final String PREFERENCES_NAME = "settings";
     private static final String TIMER_KEY = "isTimerOn";
+
+    private static final String GAMEMODE_KEY = "gameMode";
     private static final String SOUND_KEY = "isSoundOn";
 
     private static final String MUSIC_KEY = "isMusicOn";
@@ -38,6 +40,15 @@ public class GameManager {
 
     public static void setMusicState(boolean isMusicOn) {
         preferences.putBoolean(MUSIC_KEY, isMusicOn);
+    }
+
+    public static void setGameMode(String gameMode) {
+        preferences.putString(GAMEMODE_KEY, gameMode);
+    }
+
+
+    public static String getGameMode() {
+        return preferences.getString(GAMEMODE_KEY, "Easy");
     }
 
 
