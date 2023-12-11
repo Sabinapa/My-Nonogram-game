@@ -2,8 +2,14 @@ package com.mygdx.game.common;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.utils.Json;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameManager {
+
+    public static final GameManager INSTANCE = new GameManager();
     private static final String PREFERENCES_NAME = "settings";
     private static final String TIMER_KEY = "isTimerOn";
     private static final String GAMEMODE_KEY = "gameMode";
@@ -13,13 +19,39 @@ public class GameManager {
 
     private static Preferences preferences;
 
+    private static List<Levels> levels;
+
     public static void initialize() {
 
         if(preferences == null)
         {
             preferences = Gdx.app.getPreferences(PREFERENCES_NAME);
         }
+        if (levels == null) {
+            levels = new ArrayList<>();
+        }
 
+    }
+
+    public void saveLevels(Levels level) {
+        levels.add(level);
+        saveLevelsToJson();
+    }
+
+    public List<Levels> loadLevels() {
+        String scoresJson = Gdx.files.local("levels.json").exists() ?
+                Gdx.files.local("levels.json").readString() :
+                "[]";
+
+        Json json = new Json();
+        levels = json.fromJson(ArrayList.class, Levels.class, scoresJson);
+        return levels;
+    }
+
+    private void saveLevelsToJson() {
+        Json json = new Json();
+        String levelJson = json.prettyPrint(levels);
+        Gdx.files.local("levels.json").writeString(levelJson, false);
     }
 
     public static boolean isTimerOn() {

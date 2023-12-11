@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.NonogramGame;
 import com.mygdx.game.assets.AssetDescriptors;
 import com.mygdx.game.assets.RegionNames;
+import com.mygdx.game.common.GameManager;
+import com.mygdx.game.common.Levels;
 import com.mygdx.game.config.GameConfig;
 
 public class LeaderboardScreen extends ScreenAdapter {
@@ -84,13 +86,21 @@ public class LeaderboardScreen extends ScreenAdapter {
         // Naslov
         Label title = new Label("Leaderboard", skin, "title");
         title.setAlignment(Align.center);
-        table.add(title).colspan(2).padBottom(20).row();
+        table.add(title).colspan(3).padBottom(20).row();
 
         // Lestvico rezultatov
         addLeaderboardLabel(table, "Username", "Number of solved puzzles");
+
+
+
+        for (Levels entry : GameManager.INSTANCE.loadLevels()) {
+            addLeaderboardEntry(table, entry.getPlayerName(), entry.getScore());
+        }
+        /*
         addLeaderboardEntry(table, "Player1", 1000);
         addLeaderboardEntry(table, "Player2", 800);
         addLeaderboardEntry(table, "Player3", 600);
+         */
 
         // Gumb za vrnitev
         TextButton backButton = new TextButton("Back to Menu", skin);
@@ -100,7 +110,7 @@ public class LeaderboardScreen extends ScreenAdapter {
                 game.setScreen(new MenuScreen(game));
             }
         });
-        table.add(backButton).colspan(2).padTop(40);
+        table.add(backButton).colspan(3).padTop(40);
     }
 
     private void addLeaderboardEntry(Table table, String playerName, int score) {

@@ -1,0 +1,17 @@
+[
+{
+	class: com.mygdx.game.common.Levels
+	playerUsername: Player1
+	level: 2
+}
+{
+	class: com.mygdx.game.common.Levels
+	playerUsername: Player2
+	level: 3
+}
+{
+	class: com.mygdx.game.common.Levels
+	playerUsername: Player3
+	level: 4
+}
+]
