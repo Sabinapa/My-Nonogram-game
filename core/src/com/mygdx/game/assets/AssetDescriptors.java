@@ -16,6 +16,9 @@ public class AssetDescriptors
     public static final AssetDescriptor<Music> MUSIC_MENU =
             new AssetDescriptor<>(AssetPaths.BACKGROUND_MUSIC, Music.class);
 
+    public static final AssetDescriptor<Music> MUSIC_GAME =
+            new AssetDescriptor<>(AssetPaths.GAME_MUSIC, Music.class);
+
 
     private AssetDescriptors() {
     }
