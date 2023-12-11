@@ -1,15 +1,19 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -17,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.NonogramGame;
 import com.mygdx.game.assets.AssetDescriptors;
+import com.mygdx.game.common.GameManager;
 import com.mygdx.game.config.GameConfig;
 
 public class SettingsScreen extends ScreenAdapter
@@ -30,13 +35,15 @@ public class SettingsScreen extends ScreenAdapter
     private Skin skin;
     private TextureAtlas gameplayAtlas;
 
-    private boolean isTimerOn = true;
-    private boolean isSoundOn = true;
+    private boolean isTimerOn;
+    private boolean isSoundOn;
+    private boolean isMusicOn;
 
 
     public SettingsScreen(NonogramGame game) {
         this.game = game;
         assetManager = game.getAssetManager();
+        GameManager.initialize();
     }
 
     @Override
@@ -46,6 +53,11 @@ public class SettingsScreen extends ScreenAdapter
 
         skin = assetManager.get(AssetDescriptors.UI_SKINR);
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+
+        // Naloži stanje časovnika iz nastavitev
+        isTimerOn = GameManager.isTimerOn();
+        isSoundOn = GameManager.isSoundOn();
+        isMusicOn = GameManager.isMusicOn();
 
         createUI();
         Gdx.input.setInputProcessor(stage);
@@ -71,6 +83,13 @@ public class SettingsScreen extends ScreenAdapter
 
     @Override
     public void dispose() {
+
+        // Shrani stanje časovnika v nastavitve
+        GameManager.setTimerState(isTimerOn);
+        GameManager.setSoundState(isSoundOn);
+        GameManager.setMusicState(isMusicOn);
+        GameManager.flush();
+
         stage.dispose();
     }
 
@@ -84,35 +103,41 @@ public class SettingsScreen extends ScreenAdapter
         title.setAlignment(Align.center);
         table.add(title).colspan(2).padBottom(20).row();
 
-        // Dodajte gumb za vklop/izklop časovnika
-        final TextButton timerButton = new TextButton("Timer: ON", skin);
-        timerButton.addListener(new ClickListener() {
+        // Dodajte CheckBox za vklop/izklop časovnika
+        final CheckBox timerCheckBox = new CheckBox("Timer", skin);
+        timerCheckBox.setChecked(isTimerOn);
+        timerCheckBox.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // Preklopi stanje časovnika
-                isTimerOn = !isTimerOn;
-                updateTimerButtonText(timerButton, isTimerOn);
+            public void changed(ChangeEvent event, Actor actor) {
+                // Posodobi stanje časovnika
+                isTimerOn = timerCheckBox.isChecked();
             }
         });
+        table.add(timerCheckBox).colspan(2).padTop(20).row();
 
-        // Prilagoditev stanja gumba glede na trenutno stanje časovnika
-        updateTimerButtonText(timerButton, isTimerOn);
-        table.add(timerButton).colspan(2).padTop(20).row();
-
-        // Dodajte gumb za vklop/izklop časovnika
-        final TextButton SoundButton = new TextButton("Sound: ON", skin);
-        SoundButton.addListener(new ClickListener() {
+        // Dodajte CheckBox za vklop/izklop zvoka
+        final CheckBox soundCheckBox = new CheckBox("Sound", skin);
+        soundCheckBox.setChecked(isSoundOn);
+        soundCheckBox.addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // Preklopi stanje časovnika
-                isSoundOn = !isSoundOn;
-                updateSoundButtonText(SoundButton, isSoundOn);
+            public void changed(ChangeEvent event, Actor actor) {
+                // Posodobi stanje zvoka
+                isSoundOn = soundCheckBox.isChecked();
             }
         });
+        table.add(soundCheckBox).colspan(2).padTop(20).row();
 
-        // Prilagoditev stanja gumba glede na trenutno stanje časovnika
-        updateSoundButtonText(SoundButton, isSoundOn);
-        table.add(SoundButton).colspan(2).padTop(20).row();
+        // Dodajte CheckBox za vklop/izklop glasbe
+        final CheckBox musicCheckBox = new CheckBox("Music", skin);
+        musicCheckBox.setChecked(isMusicOn);
+        musicCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Posodobi stanje glasbe
+                isMusicOn = musicCheckBox.isChecked();
+            }
+        });
+        table.add(musicCheckBox).colspan(2).padTop(20).row();
 
         // Gumb za vrnitev
         TextButton backButton = new TextButton("Back to Menu", skin);
@@ -123,16 +148,6 @@ public class SettingsScreen extends ScreenAdapter
             }
         });
         table.add(backButton).colspan(2).padTop(40);
-    }
-
-    private void updateTimerButtonText(TextButton timerButton, boolean isTimerOn) {
-        String buttonText = isTimerOn ? "Timer: ON" : "Timer: OFF";
-        timerButton.setText(buttonText);
-    }
-
-    private void updateSoundButtonText(TextButton SoundButton, boolean isSoundOn) {
-        String buttonText = isSoundOn ? "Sound: ON" : "Sound: OFF";
-        SoundButton.setText(buttonText);
     }
 
 }
