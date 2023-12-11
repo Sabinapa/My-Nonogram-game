@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -54,6 +55,14 @@ public class IntroScreen extends ScreenAdapter
         stage.addActor(createKeyhole());
         // Animacijo metuljev
         stage.addActor(createButterflyAnimation());
+
+        // Dodajte naslov v sredino
+        Label title = new Label("Nonogram", assetManager.get(AssetDescriptors.UI_SKINR));
+        title.setPosition(
+                viewport.getWorldWidth() / 2f - title.getWidth() / 2f,
+                viewport.getWorldHeight() / 2f - title.getHeight() / 2f
+        );
+        stage.addActor(title);
     }
 
     @Override

@@ -87,6 +87,7 @@ public class LeaderboardScreen extends ScreenAdapter {
         table.add(title).colspan(2).padBottom(20).row();
 
         // Lestvico rezultatov
+        addLeaderboardLabel(table, "Username", "Number of solved puzzles");
         addLeaderboardEntry(table, "Player1", 1000);
         addLeaderboardEntry(table, "Player2", 800);
         addLeaderboardEntry(table, "Player3", 600);
@@ -107,6 +108,14 @@ public class LeaderboardScreen extends ScreenAdapter {
         table.add(nameLabel).padRight(100);
 
         Label scoreLabel = new Label(String.valueOf(score), skin);
+        table.add(scoreLabel).padBottom(10).row();
+    }
+
+    private void addLeaderboardLabel(Table table, String playerName, String name) {
+        Label nameLabel = new Label(playerName, skin);
+        table.add(nameLabel).padRight(100);
+
+        Label scoreLabel = new Label(String.valueOf(name), skin);
         table.add(scoreLabel).padBottom(10).row();
     }
 
