@@ -3,6 +3,7 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.NonogramGame;
 import com.mygdx.game.assets.AssetDescriptors;
 import com.mygdx.game.assets.RegionNames;
+import com.mygdx.game.common.GameManager;
 import com.mygdx.game.config.GameConfig;
 
 public class MenuScreen extends ScreenAdapter
@@ -33,9 +35,12 @@ public class MenuScreen extends ScreenAdapter
     private Skin skin;
     private TextureAtlas gameplayAtlas;
 
+    private Music backgroundMusic;
+
     public MenuScreen(NonogramGame game) {
         this.game = game;
         assetManager = game.getAssetManager();
+        GameManager.initialize();
     }
 
     @Override
@@ -45,6 +50,16 @@ public class MenuScreen extends ScreenAdapter
 
         skin = assetManager.get(AssetDescriptors.UI_SKINR);
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+
+        // Nalaganje glasbe
+        backgroundMusic =  assetManager.get(AssetDescriptors.MUSIC_MENU);
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.5f); // Nastavite glasnost glede na potrebe
+
+        // Predvajanje glasbe
+        if (GameManager.isMusicOn()) {
+            backgroundMusic.play();
+        }
 
         stage.addActor(createUi());
         Gdx.input.setInputProcessor(stage);
@@ -69,6 +84,8 @@ public class MenuScreen extends ScreenAdapter
 
     @Override
     public void dispose() {
+
+        backgroundMusic.dispose();
         stage.dispose();
     }
 
@@ -87,7 +104,7 @@ public class MenuScreen extends ScreenAdapter
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game));
                 // TODO
             }
         });
