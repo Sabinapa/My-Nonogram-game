@@ -9,6 +9,12 @@ public class RegionNames
 
     public static final String HOVER = "okvir1";
 
+    public static final String IZBIRAK = "krogkriz";
+    public static final String IZBIRAKV = "krogkvadrat";
+
+    public static final String CROSS = "kriz";
+    public static final String SQARE = "kvadrat";
+
     private RegionNames() {
     }
 }
