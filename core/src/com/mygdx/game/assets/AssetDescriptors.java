@@ -11,8 +11,11 @@ public class AssetDescriptors
     public static final AssetDescriptor<Skin> UI_SKINR =
             new AssetDescriptor<Skin>(AssetPaths.UI_SKINR, Skin.class);
 
-    public static final AssetDescriptor<TextureAtlas> GAMEPLAY =
-            new AssetDescriptor<TextureAtlas>(AssetPaths.GAMEPLAY, TextureAtlas.class);
+    public static final AssetDescriptor<TextureAtlas> GAMESTIL =
+            new AssetDescriptor<TextureAtlas>(AssetPaths.GAMESTIL, TextureAtlas.class);
+
+    public static final AssetDescriptor<TextureAtlas> GAMEATLAS =
+            new AssetDescriptor<TextureAtlas>(AssetPaths.GAMEATLAS, TextureAtlas.class);
     public static final AssetDescriptor<Music> MUSIC_MENU =
             new AssetDescriptor<>(AssetPaths.BACKGROUND_MUSIC, Music.class);
 

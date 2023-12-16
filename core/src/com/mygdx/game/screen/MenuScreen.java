@@ -49,7 +49,7 @@ public class MenuScreen extends ScreenAdapter
         stage = new Stage(viewport, game.getBatch());
 
         skin = assetManager.get(AssetDescriptors.UI_SKINR);
-        gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+        gameplayAtlas = assetManager.get(AssetDescriptors.GAMESTIL);
 
         // Nalaganje glasbe
         backgroundMusic =  assetManager.get(AssetDescriptors.MUSIC_MENU);

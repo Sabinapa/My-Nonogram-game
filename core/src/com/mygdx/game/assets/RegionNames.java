@@ -7,6 +7,8 @@ public class RegionNames
     public static final String CIRCLE = "touchpad";
     public static final String TEXTFIELD = "textfield";
 
+    public static final String HOVER = "okvir1";
+
     private RegionNames() {
     }
 }

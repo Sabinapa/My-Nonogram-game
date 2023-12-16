@@ -47,12 +47,13 @@ public class IntroScreen extends ScreenAdapter
 
         // load assets
         assetManager.load(AssetDescriptors.UI_SKINR);
-        assetManager.load(AssetDescriptors.GAMEPLAY);
+        assetManager.load(AssetDescriptors.GAMESTIL);
+        assetManager.load(AssetDescriptors.GAMEATLAS);
         assetManager.load(AssetDescriptors.MUSIC_MENU);
         assetManager.load(AssetDescriptors.MUSIC_GAME);
         assetManager.finishLoading();   // blocks until all assets are loaded
 
-        gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+        gameplayAtlas = assetManager.get(AssetDescriptors.GAMESTIL);
 
         stage.addActor(createKeyhole());
         // Animacijo metuljev

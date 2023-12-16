@@ -1,62 +1,55 @@
 
 gameplay.png
-size: 512, 64
+size: 1024, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 križ
   rotate: false
-  xy: 2, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 154, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-križkrog
+krogkriž
   rotate: false
-  xy: 64, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 404, 145
+  size: 109, 109
+  orig: 109, 109
+  offset: 0, 0
+  index: -1
+krogkvadrat
+  rotate: false
+  xy: 515, 145
+  size: 109, 109
+  orig: 109, 109
   offset: 0, 0
   index: -1
 kvadrat
   rotate: false
-  xy: 126, 2
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-kvadratkrog
-  rotate: false
-  xy: 188, 2
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-okvir
-  rotate: false
-  xy: 250, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 256, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
 okvir1
   rotate: false
-  xy: 312, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 358, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-pravokotnik
+pracvokotnikgori
   rotate: false
-  xy: 374, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 2, 6
+  size: 150, 248
+  orig: 150, 248
   offset: 0, 0
   index: -1
-pravokotnik1
+pracvokotniklevo
   rotate: false
-  xy: 436, 2
-  size: 60, 60
-  orig: 60, 60
+  xy: 154, 104
+  size: 248, 150
+  orig: 248, 150
   offset: 0, 0
   index: -1

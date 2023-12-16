@@ -28,9 +28,7 @@ import com.mygdx.game.config.GameConfig;
 public class LeaderboardScreen extends ScreenAdapter {
 
     private final NonogramGame game;
-
     private final AssetManager assetManager;
-
     private Viewport viewport;
     private Stage stage;
     private Skin skin;
@@ -47,7 +45,7 @@ public class LeaderboardScreen extends ScreenAdapter {
         stage = new Stage(viewport, game.getBatch());
 
         skin = assetManager.get(AssetDescriptors.UI_SKINR);
-        gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+        gameplayAtlas = assetManager.get(AssetDescriptors.GAMESTIL);
 
         createUI();
         Gdx.input.setInputProcessor(stage);
@@ -90,8 +88,6 @@ public class LeaderboardScreen extends ScreenAdapter {
 
         // Lestvico rezultatov
         addLeaderboardLabel(table, "Username", "Number of solved puzzles");
-
-
 
         for (Levels entry : GameManager.INSTANCE.loadLevels()) {
             addLeaderboardEntry(table, entry.getPlayerName(), entry.getScore());

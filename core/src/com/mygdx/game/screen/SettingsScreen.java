@@ -59,7 +59,7 @@ public class SettingsScreen extends ScreenAdapter
         stage = new Stage(viewport, game.getBatch());
 
         skin = assetManager.get(AssetDescriptors.UI_SKINR);
-        gameplayAtlas = assetManager.get(AssetDescriptors.GAMEPLAY);
+        gameplayAtlas = assetManager.get(AssetDescriptors.GAMESTIL);
 
         // Naloži stanje časovnika iz nastavitev
         isTimerOn = GameManager.isTimerOn();
