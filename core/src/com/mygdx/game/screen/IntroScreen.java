@@ -51,6 +51,7 @@ public class IntroScreen extends ScreenAdapter
         assetManager.load(AssetDescriptors.GAMEATLAS);
         assetManager.load(AssetDescriptors.MUSIC_MENU);
         assetManager.load(AssetDescriptors.MUSIC_GAME);
+        assetManager.load(AssetDescriptors.CLAP_SOUND);
         assetManager.finishLoading();   // blocks until all assets are loaded
 
         gameplayAtlas = assetManager.get(AssetDescriptors.GAMESTIL);

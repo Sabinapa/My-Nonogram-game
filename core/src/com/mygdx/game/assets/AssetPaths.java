@@ -11,6 +11,8 @@ public class AssetPaths
 
     public static final String GAME_MUSIC = "sound/relaxed-vlog-night-street-131746.mp3";
 
+    public static final String CLAP_SOUND = "sound/pop2-84862.mp3";
+
     private AssetPaths() {
     }
 }

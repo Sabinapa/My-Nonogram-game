@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -55,6 +56,8 @@ public class GameScreen extends ScreenAdapter
 
     private Music backgroundMusic;
 
+    private Sound clapSound;
+
     private boolean useCross = true;
 
     public GameScreen(NonogramGame game) {
@@ -76,6 +79,7 @@ public class GameScreen extends ScreenAdapter
         gameAtlas = assetManager.get(AssetDescriptors.GAMEATLAS);
 
         // Nalaganje glasbe
+        clapSound = assetManager.get(AssetDescriptors.CLAP_SOUND);
         backgroundMusic =  assetManager.get(AssetDescriptors.MUSIC_GAME);
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(0.5f); // Nastavite glasnost glede na potrebe
@@ -202,8 +206,8 @@ public class GameScreen extends ScreenAdapter
 
     private void addShapeSelectionButtons(Table rootTable)
     {
-            final TextureRegion Kriz = gameAtlas.findRegion(RegionNames.IZBIRAK); // Nastavite vašo prvo sliko
-            final TextureRegion Kvadrat = gameAtlas.findRegion(RegionNames.IZBIRAKV); // Nastavite vašo drugo sliko
+            final TextureRegion Kriz = gameAtlas.findRegion(RegionNames.IZBIRAK);
+            final TextureRegion Kvadrat = gameAtlas.findRegion(RegionNames.IZBIRAKV);
 
             TextureRegionDrawable imageDrawable1 = new TextureRegionDrawable(Kriz);
             TextureRegionDrawable imageDrawable2 = new TextureRegionDrawable(Kvadrat);
@@ -211,10 +215,14 @@ public class GameScreen extends ScreenAdapter
             Image image1 = new Image(imageDrawable1);
             Image image2 = new Image(imageDrawable2);
 
-            // Dodajte poslušalce za obdelavo klike
         image1.addListener(new ClickListener() {
                 @Override
-                public void clicked(InputEvent event, float x, float y) {
+                public void clicked(InputEvent event, float x, float y)
+                {
+                    if(GameManager.isSoundOn())
+                    {
+                        clapSound.play();
+                    }
                     useCross = true;
                 }
             });
@@ -222,6 +230,10 @@ public class GameScreen extends ScreenAdapter
         image2.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    if(GameManager.isSoundOn())
+                    {
+                        clapSound.play();
+                    }
                     useCross = false;
                 }
             });
@@ -231,9 +243,6 @@ public class GameScreen extends ScreenAdapter
         table.add(image1).pad(10);
         table.add(image2).pad(10);
 
-        // Postavitev tabele na sredino hudStage
-        //table.center();
-        //table.setFillParent(true);
 
         rootTable.row().bottom().padBottom(20); // Dodajte odmik pod zadnjo vrstico
         rootTable.add(table).padBottom(100); // Dodajte slike pod mrežo

@@ -110,7 +110,7 @@ public class SettingsScreen extends ScreenAdapter
         // Dodajte naslov
         Label title = new Label("Settings", skin, "title");
         title.setAlignment(Align.center);
-        table.add(title).colspan(2).padBottom(20).row();
+        table.add(title).colspan(3).padBottom(20).row();
 
         // Dodajte CheckBox za vklop/izklop časovnika
         final CheckBox timerCheckBox = new CheckBox("Timer", skin);
@@ -122,7 +122,7 @@ public class SettingsScreen extends ScreenAdapter
                 isTimerOn = timerCheckBox.isChecked();
             }
         });
-        table.add(timerCheckBox).colspan(2).padTop(20).row();
+        table.add(timerCheckBox).colspan(3).padTop(20).row();
 
         // Dodajte CheckBox za vklop/izklop zvoka
         final CheckBox soundCheckBox = new CheckBox("Sound", skin);
@@ -134,7 +134,7 @@ public class SettingsScreen extends ScreenAdapter
                 isSoundOn = soundCheckBox.isChecked();
             }
         });
-        table.add(soundCheckBox).colspan(2).padTop(20).row();
+        table.add(soundCheckBox).colspan(3).padTop(20).row();
 
         // Dodajte CheckBox za vklop/izklop glasbe
         final CheckBox musicCheckBox = new CheckBox("Music", skin);
@@ -146,7 +146,7 @@ public class SettingsScreen extends ScreenAdapter
                 isMusicOn = musicCheckBox.isChecked();
             }
         });
-        table.add(musicCheckBox).colspan(2).padTop(20).row();
+        table.add(musicCheckBox).colspan(3).padTop(20).row();
 
         // Dodajte SelectBox za izbiro težavnostnega načina
         difficultySelectBox = new SelectBox<>(skin);
@@ -160,7 +160,7 @@ public class SettingsScreen extends ScreenAdapter
             }
         });
         table.add(new Label("Difficulty:", skin)).padTop(20).padRight(10);
-        table.add(difficultySelectBox).padTop(20).colspan(2).row();
+        table.add(difficultySelectBox).padTop(20).colspan(3).row();
 
         // Gumb za vrnitev
         TextButton backButton = new TextButton("Back to Menu", skin);
@@ -170,7 +170,7 @@ public class SettingsScreen extends ScreenAdapter
                 game.setScreen(new MenuScreen(game));
             }
         });
-        table.add(backButton).colspan(2).padTop(40);
+        table.add(backButton).colspan(3).padTop(40);
     }
 
 }
