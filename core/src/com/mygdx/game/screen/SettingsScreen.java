@@ -107,12 +107,12 @@ public class SettingsScreen extends ScreenAdapter
         table.setFillParent(true);
         stage.addActor(table);
 
-        // Dodajte naslov
+        // naslov
         Label title = new Label("Settings", skin, "title");
         title.setAlignment(Align.center);
         table.add(title).colspan(3).padBottom(20).row();
 
-        // Dodajte CheckBox za vklop/izklop časovnika
+        // CheckBox za vklop/izklop časovnika
         final CheckBox timerCheckBox = new CheckBox("Timer", skin);
         timerCheckBox.setChecked(isTimerOn);
         timerCheckBox.addListener(new ChangeListener() {
@@ -124,7 +124,7 @@ public class SettingsScreen extends ScreenAdapter
         });
         table.add(timerCheckBox).colspan(3).padTop(20).row();
 
-        // Dodajte CheckBox za vklop/izklop zvoka
+        // CheckBox za vklop/izklop zvoka
         final CheckBox soundCheckBox = new CheckBox("Sound", skin);
         soundCheckBox.setChecked(isSoundOn);
         soundCheckBox.addListener(new ChangeListener() {
@@ -136,7 +136,7 @@ public class SettingsScreen extends ScreenAdapter
         });
         table.add(soundCheckBox).colspan(3).padTop(20).row();
 
-        // Dodajte CheckBox za vklop/izklop glasbe
+        // CheckBox za vklop/izklop glasbe
         final CheckBox musicCheckBox = new CheckBox("Music", skin);
         musicCheckBox.setChecked(isMusicOn);
         musicCheckBox.addListener(new ChangeListener() {
@@ -148,7 +148,7 @@ public class SettingsScreen extends ScreenAdapter
         });
         table.add(musicCheckBox).colspan(3).padTop(20).row();
 
-        // Dodajte SelectBox za izbiro težavnostnega načina
+        // SelectBox za izbiro težavnostnega načina
         difficultySelectBox = new SelectBox<>(skin);
         difficultySelectBox.setItems(difficultyOptions);
         difficultySelectBox.setSelected(gameMode); // Nastavitev izbrane možnosti

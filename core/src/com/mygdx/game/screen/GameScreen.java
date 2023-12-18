@@ -153,14 +153,14 @@ public class GameScreen extends ScreenAdapter
         gameTable.add(createGrid(5, 5, 50)).pad(10);  // Prilagoditev glede na vaše potrebe
 
 
-        // Dodaj vse vrstice v korenasto tabelo
+        // vrstice v korenasto tabelo
         rootTable.top().add(topRow).padTop(10).padRight(200);
         rootTable.row().expandY();
         rootTable.add(gameTable).expand();
 
         addShapeSelectionButtons(rootTable);
 
-        // Dodaj korenasto tabelo v glavno odri pod hudStage
+        // korenasta tabela v glavno odri pod hudStage
         hudStage.addActor(rootTable);
 
     }
@@ -194,7 +194,7 @@ public class GameScreen extends ScreenAdapter
                     }
                 });
 
-                grid.add(cellImage);  // Dodaj celico v mrežo z določenim odmikom (pad)
+                grid.add(cellImage);
             }
             grid.row();  // Preklopi na naslednjo vrsto
         }
@@ -244,8 +244,8 @@ public class GameScreen extends ScreenAdapter
         table.add(image2).pad(10);
 
 
-        rootTable.row().bottom().padBottom(20); // Dodajte odmik pod zadnjo vrstico
-        rootTable.add(table).padBottom(100); // Dodajte slike pod mrežo
+        rootTable.row().bottom().padBottom(20);
+        rootTable.add(table).padBottom(100);
         }
 
 
