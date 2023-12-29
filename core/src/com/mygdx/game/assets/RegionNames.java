@@ -15,6 +15,8 @@ public class RegionNames
     public static final String CROSS = "kriz";
     public static final String SQARE = "kvadrat";
 
+    public static final String WRONG = "wrong";
+
     private RegionNames() {
     }
 }

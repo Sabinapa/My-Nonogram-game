@@ -17,6 +17,8 @@ public class GameManager {
 
     private static final String MUSIC_KEY = "isMusicOn";
 
+    private static final Integer WRONG = 0;
+
     private static Preferences preferences;
 
     private static List<Levels> levels;
@@ -93,4 +95,13 @@ public class GameManager {
             preferences.flush();
         }
     }
+
+    public static void setWrong(int wrongCount) {
+        preferences.putInteger(String.valueOf(WRONG), wrongCount);
+    }
+
+    public static int getWrong() {
+        return preferences.getInteger(String.valueOf(WRONG), WRONG);
+    }
+
 }

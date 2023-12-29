@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -59,6 +61,15 @@ public class GameScreen extends ScreenAdapter
     private Sound clapSound;
 
     private boolean useCross = true;
+
+    private int wrongCount = 0;
+
+    private int[][] easyLevelMatrix = {
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
+    };
 
     public GameScreen(NonogramGame game) {
         this.game = game;
@@ -150,7 +161,11 @@ public class GameScreen extends ScreenAdapter
 
         // Vrstica za igro
         Table gameTable = new Table();
-        gameTable.add(createGrid(5, 5, 50)).pad(10);  // Prilagoditev glede na vaše potrebe
+        if(GameManager.getGameMode() == "Easy")
+        {
+            gameTable.add(createGrid(4, 4, 50)).pad(10);  // Prilagoditev glede na vaše potrebe
+        }
+
 
 
         // vrstice v korenasto tabelo
@@ -177,19 +192,61 @@ public class GameScreen extends ScreenAdapter
         final TextureRegion emptyRegion = gameAtlas.findRegion(RegionNames.HOVER);
         final TextureRegion cross = gameAtlas.findRegion(RegionNames.CROSS);
         final TextureRegion square = gameAtlas.findRegion(RegionNames.SQARE);
+        final TextureRegion wrong = gameAtlas.findRegion(RegionNames.WRONG);
 
         // Loop za dodajanje celic v mrežo
         for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
+            for (int col = 0; col < columns; col++)
+            {
+                final int value = easyLevelMatrix[row][col];
                 final Image cellImage = new Image(emptyRegion);
                 cellImage.setTouchable(Touchable.enabled); // Omogoči dotik na posamezni celici
                 cellImage.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        if (useCross) {
+                        if (useCross && value == 1)
+                        {
                             cellImage.setDrawable(new TextureRegionDrawable(cross));
-                        } else {
+                        }
+                        else if (!useCross && value == 0)
+                        {
                             cellImage.setDrawable(new TextureRegionDrawable(square));
+                        }
+                        else if(useCross && value == 0)
+                        {
+                            cellImage.setDrawable(new TextureRegionDrawable(wrong));
+
+                            // Dodaj akcijo, da počaka nekaj sekund, preden se spremeni
+                            SequenceAction sequenceAction = Actions.sequence();
+                            sequenceAction.addAction(Actions.delay(1.0f)); // Nastavite želeno zakasnitev
+                            sequenceAction.addAction(Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Počaka po določenem času in nato spremeni sliko nazaj ali kako želite
+                                    cellImage.setDrawable(new TextureRegionDrawable(square));
+                                }
+                            }));
+                            cellImage.addAction(sequenceAction);
+                            wrongCount++;
+                            GameManager.setWrong(wrongCount);
+                        }
+                        else if(!useCross && value == 1)
+                        {
+                            cellImage.setDrawable(new TextureRegionDrawable(wrong));
+                            // Dodaj akcijo, da počaka nekaj sekund, preden se spremeni
+                            SequenceAction sequenceAction = Actions.sequence();
+                            sequenceAction.addAction(Actions.delay(1.0f)); // Nastavite želeno zakasnitev
+                            sequenceAction.addAction(Actions.run(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Počaka po določenem času in nato spremeni sliko nazaj ali kako želite
+                                    cellImage.setDrawable(new TextureRegionDrawable(cross));
+                                }
+                            }));
+                            cellImage.addAction(sequenceAction);
+                            wrongCount++;
+                            GameManager.setWrong(wrongCount);
+                            System.out.println(GameManager.getWrong());
                         }
                     }
                 });
