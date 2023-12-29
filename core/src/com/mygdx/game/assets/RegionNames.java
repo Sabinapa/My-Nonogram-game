@@ -17,6 +17,11 @@ public class RegionNames
 
     public static final String WRONG = "wrong";
 
+    public static final String HEART3 = "treeheart";
+    public static final String HEART2 = "twoheart";
+
+    public static final String HEART = "oneheart";
+
     private RegionNames() {
     }
 }

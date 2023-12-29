@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -60,9 +61,13 @@ public class GameScreen extends ScreenAdapter
 
     private Sound clapSound;
 
+    private TextureRegion heart;
+
     private boolean useCross = true;
 
     private int wrongCount = 0;
+
+    private Table topRow;
 
     private int[][] easyLevelMatrix = {
             {1, 0, 0, 0},
@@ -121,6 +126,8 @@ public class GameScreen extends ScreenAdapter
         gameplayStage.act(delta);
         hudStage.act(delta);
 
+        //updateHeartImage();
+
         // draw
         gameplayStage.draw();
         hudStage.draw();
@@ -139,12 +146,29 @@ public class GameScreen extends ScreenAdapter
         hudStage.dispose();
     }
 
+    private void updateHeartImage() {
+        Image heartsImage = (Image) topRow.findActor("heartsImage"); // Use the name or class of the actor
+        if (heartsImage != null) {
+            if (wrongCount == 0) {
+                heart = gameAtlas.findRegion(RegionNames.HEART3);
+            } else if (wrongCount == 1) {
+                heart = gameAtlas.findRegion(RegionNames.HEART2);
+            } else if (wrongCount == 2) {
+                heart = gameAtlas.findRegion(RegionNames.HEART);
+            }
+
+            heartsImage.setDrawable(new TextureRegionDrawable(heart));
+        }
+    }
+
+
+
     private void position() {
         Table rootTable = new Table();
         rootTable.setFillParent(true);
 
         // Vrstica za gumb za nazaj, srčke in časovnik
-        Table topRow = new Table();
+        topRow = new Table();
         TextButton backButton = new TextButton("Menu", skin);
         backButton.addListener(new ClickListener() {
             @Override
@@ -153,11 +177,12 @@ public class GameScreen extends ScreenAdapter
             }
         });
 
-        //ImageButton heartsButton = new ImageButton(heartButtonStyle);  // Prilagoditev stila srčkov
+        heart = gameAtlas.findRegion(RegionNames.HEART3);
+        Image heartsImage = new Image(heart);
+        heartsImage.setName("heartsImage");
 
         topRow.add(backButton).pad(10);
-        //topRow.add(heartsButton).pad(10);
-
+        topRow.add(heartsImage).pad(10);
 
         // Vrstica za igro
         Table gameTable = new Table();
@@ -165,8 +190,6 @@ public class GameScreen extends ScreenAdapter
         {
             gameTable.add(createGrid(4, 4, 50)).pad(10);  // Prilagoditev glede na vaše potrebe
         }
-
-
 
         // vrstice v korenasto tabelo
         rootTable.top().add(topRow).padTop(10).padRight(200);
@@ -229,6 +252,7 @@ public class GameScreen extends ScreenAdapter
                             cellImage.addAction(sequenceAction);
                             wrongCount++;
                             GameManager.setWrong(wrongCount);
+                            updateHeartImage();
                         }
                         else if(!useCross && value == 1)
                         {
@@ -247,6 +271,7 @@ public class GameScreen extends ScreenAdapter
                             wrongCount++;
                             GameManager.setWrong(wrongCount);
                             System.out.println(GameManager.getWrong());
+                            updateHeartImage();
                         }
                     }
                 });
