@@ -89,7 +89,7 @@ public class LeaderboardScreen extends ScreenAdapter {
         // Lestvico rezultatov
         addLeaderboardLabel(table, "Username", "Number of solved puzzles");
 
-        for (Levels entry : GameManager.INSTANCE.loadLevels()) {
+        for (Levels entry : GameManager.INSTANCE.sortScores()) {
             addLeaderboardEntry(table, entry.getPlayerName(), entry.getScore());
         }
         /*

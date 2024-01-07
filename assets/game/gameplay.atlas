@@ -6,77 +6,77 @@ filter: Nearest, Nearest
 repeat: none
 kriz
   rotate: false
-  xy: 709, 43
+  xy: 154, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 krogkriz
   rotate: false
-  xy: 252, 43
+  xy: 404, 145
   size: 109, 109
   orig: 109, 109
   offset: 0, 0
   index: -1
 krogkvadrat
   rotate: false
-  xy: 709, 145
+  xy: 515, 145
   size: 109, 109
   orig: 109, 109
   offset: 0, 0
   index: -1
 kvadrat
   rotate: false
-  xy: 820, 154
+  xy: 256, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 okvir1
   rotate: false
-  xy: 922, 154
+  xy: 358, 2
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 oneheart
   rotate: false
-  xy: 363, 52
-  size: 106, 100
-  orig: 106, 100
+  xy: 796, 204
+  size: 53, 50
+  orig: 53, 50
   offset: 0, 0
   index: -1
 pracvokotnikgori
   rotate: false
-  xy: 557, 6
+  xy: 2, 6
   size: 150, 248
   orig: 150, 248
   offset: 0, 0
   index: -1
 pracvokotniklevo
   rotate: false
-  xy: 2, 2
+  xy: 154, 104
   size: 248, 150
   orig: 248, 150
   offset: 0, 0
   index: -1
 treeheart
   rotate: false
-  xy: 2, 154
-  size: 335, 100
-  orig: 335, 100
+  xy: 626, 204
+  size: 168, 50
+  orig: 168, 50
   offset: 0, 0
   index: -1
 twoheart
   rotate: false
-  xy: 339, 154
-  size: 216, 100
-  orig: 216, 100
+  xy: 626, 152
+  size: 108, 50
+  orig: 108, 50
   offset: 0, 0
   index: -1
 wrong
   rotate: false
-  xy: 811, 43
+  xy: 460, 43
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
