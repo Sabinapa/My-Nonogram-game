@@ -2,11 +2,6 @@
 {
 	class: com.mygdx.game.common.Levels
 	playerUsername: bina
-	level: 2
-}
-{
-	class: com.mygdx.game.common.Levels
-	playerUsername: nejc
-	level: 1
+	level: 3
 }
 ]

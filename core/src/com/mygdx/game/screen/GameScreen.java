@@ -78,6 +78,8 @@ public class GameScreen extends ScreenAdapter
     private int winEasy = 16;
 
     private int winStandard = 20;
+
+    private int winHard = 24;
     private int countWin = 0;
 
     private int[][] easyLevelMatrix = {
@@ -94,6 +96,16 @@ public class GameScreen extends ScreenAdapter
             {0, 0, 0, 1},
             {0, 0, 0, 1}
     };
+
+    private int[][] hardLevelMatrix = {
+            {1, 0, 0, 0},
+            {0, 1, 1, 0},
+            {1, 0, 1, 0},
+            {0, 0, 0, 1},
+            {0, 0, 0, 1},
+            {0, 0, 0, 1}
+    };
+
 
     private int[][] easyLevelRows = {
             {3},
@@ -119,6 +131,22 @@ public class GameScreen extends ScreenAdapter
             {3},
             {1, 1},
             {1, 1},
+            {3},
+            {3}
+    };
+
+    private int[][] hardLevelColumns = {
+            {1, 3},
+            {1, 4},
+            {1, 3},
+            {3}
+    };
+
+    private int[][] hardLevelRows = {
+            {3},
+            {1, 1},
+            {1, 1},
+            {3},
             {3},
             {3}
     };
@@ -158,7 +186,7 @@ public class GameScreen extends ScreenAdapter
         {
             timeLeft = timeLeftEasy;
         }
-        else if(GameManager.getGameMode() == "Standard")
+        else if(GameManager.getGameMode() == "Standard" || GameManager.getGameMode() == "Hard")
         {
             timeLeft = timeLeftStandard;
         }
@@ -311,6 +339,9 @@ public class GameScreen extends ScreenAdapter
         } else if (GameManager.getGameMode().equals("Standard")) {
             levelMatrixRows = standardLevelRows;
             levelMatrixColumns = standardLevelColumns;
+        } else if (GameManager.getGameMode().equals("Hard")) {
+            levelMatrixRows = hardLevelRows;
+            levelMatrixColumns = hardLevelColumns;
         }
 
         // ROWS LEVO OD TABELE
@@ -359,6 +390,10 @@ public class GameScreen extends ScreenAdapter
         {
             gameTable.add(createGrid(5, 4, 50)).pad(10).center();
         }
+        else if(GameManager.getGameMode() == "Hard")
+        {
+            gameTable.add(createGrid(6, 4, 50)).pad(10).center();
+        }
 
         // Skupna tabela, ki vsebuje obe tabeli
         Table contentTable = new Table();
@@ -406,6 +441,10 @@ public class GameScreen extends ScreenAdapter
                 else if(GameManager.getGameMode() == "Standard")
                 {
                     value = standardLevelMatrix[row][col];
+                }
+                else if(GameManager.getGameMode() == "Hard")
+                {
+                    value = hardLevelMatrix[row][col];
                 }
                 final Image cellImage = new Image(emptyRegion);
                 cellImage.setTouchable(Touchable.enabled); // Omogoči dotik na posamezni celici
@@ -510,6 +549,16 @@ public class GameScreen extends ScreenAdapter
                 won = false;
             }
         }
+        else if(GameManager.getGameMode() == "Hard")
+        {
+            if (countWin == winHard) {
+                won = true;
+            }
+            else
+            {
+                won = false;
+            }
+        }
         return won;
 
     }
@@ -551,6 +600,11 @@ public class GameScreen extends ScreenAdapter
                     game.setScreen(new GameScreen(game));
                 }
                 else if(GameManager.getGameMode() == "Standard")
+                {
+                    GameManager.setGameMode("Hard");
+                    game.setScreen(new GameScreen(game));
+                }
+                else if (GameManager.getGameMode() == "Hard")
                 {
                     game.setScreen(new MenuScreen(game));
                 }
